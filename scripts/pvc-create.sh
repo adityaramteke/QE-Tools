@@ -9,6 +9,7 @@
 
 name=$1
 storageSize=$2
+nameSpace=$3
 storageClass=glusterfs-file
 : '
 file volume access mode should be "ReadWriteMany"
@@ -23,6 +24,7 @@ metadata:
   name: $name
   annotations:
     volume.beta.kubernetes.io/storage-class: $storageClass
+  namespace: $nameSpace
 spec:
   accessModes:
    - $accessModes

@@ -5,12 +5,12 @@
 
 
 for i in {001..020}; do
-    sh pvc-create.sh claim$i 1;
+    sh pvc-create.sh claim$i 1 glusterfs-file;
 
     echo `date` - "PVC claim"$i "creation request sent" | tee -a pvctrace.log
 
     while true; do
-        var="$(oc get pvc claim$i -o=custom-columns=:.status.phase --no-headers)"
+        var="$(oc get pvc claim$i -o=custom-columns=:.status.phase --no-headers -n glusterfs-file)"
 
         if [ "${var}" == 'Bound' ]; then
             echo `date` - "PVC claim"$i "creation successful" | tee -a pvctrace.log
