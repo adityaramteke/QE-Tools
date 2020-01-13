@@ -9,4 +9,4 @@ remove_glusterfs:
 	ansible-playbook -e "openshift_storage_glusterfs_wipe=true" /usr/share/ansible/openshift-ansible/playbooks/openshift-glusterfs/uninstall.yml
 install_heketi:
 	subscription-manager repos --enable=rh-gluster-3-client-for-rhel-7-server-rpms
-	yum install heketi-client
+	yum install heketi-client -y
