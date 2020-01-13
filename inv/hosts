@@ -36,6 +36,8 @@ openshift_use_openshift_sdn=true
 osm_use_cockpit=false
 osm_cockpit_plugins=['cockpit-kubernetes']
 
+openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'challenge': 'true', 'kind': 'AllowAllPasswordIdentityProvider'}]
+
 openshift_master_dynamic_provisioning_enabled=true
 
 openshift_docker_additional_registries='registry-proxy.engineering.redhat.com'
