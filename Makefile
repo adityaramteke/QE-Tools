@@ -22,3 +22,4 @@ create_projects:
 create_workload:
 	sh scripts/pvc-create-and-wait-block.sh
 	sh scripts/pvc-create-and-wait-file.sh
+
