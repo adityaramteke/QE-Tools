@@ -16,3 +16,9 @@ remove_gluster_with_metrics:
 install_heketi:
 	subscription-manager repos --enable=rh-gluster-3-client-for-rhel-7-server-rpms
 	yum install heketi-client -y
+create_projects:
+	oc new-project glusterfs-file
+	oc new-project glusterfs-block
+create_workload:
+	sh scripts/pvc-create-and-wait-block.sh
+	sh scripts/pvc-create-and-wait-file.sh

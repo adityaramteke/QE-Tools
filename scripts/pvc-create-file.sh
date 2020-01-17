@@ -10,7 +10,7 @@
 name=$1
 storageSize=$2
 nameSpace=$3
-storageClass=glusterfs-file
+storageClass=glusterfs-storage
 : '
 file volume access mode should be "ReadWriteMany"
 block volume access mode should be "ReadWriteOnce"
