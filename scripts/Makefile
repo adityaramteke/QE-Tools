@@ -20,6 +20,6 @@ create_projects:
 	oc new-project glusterfs-file
 	oc new-project glusterfs-block
 create_workload:
-	sh scripts/pvc-create-and-wait-block.sh
-	sh scripts/pvc-create-and-wait-file.sh
+	sh pvc-create-and-wait-block.sh
+	sh pvc-create-and-wait-file.sh
 
