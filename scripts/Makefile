@@ -22,4 +22,7 @@ create_projects:
 create_workload:
 	sh pvc-create-and-wait-block.sh
 	sh pvc-create-and-wait-file.sh
-
+full_deploy_with_workload:
+	make full_deploy
+	make create_projects
+	make create_workload
