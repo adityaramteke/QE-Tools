@@ -20,5 +20,4 @@ for i in {001..050}; do
             break
         fi
     done
-    sleep 10
 done
