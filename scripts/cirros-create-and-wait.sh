@@ -19,4 +19,5 @@ for i in {001..020}; do
             break
         fi
     done
+    sleep 10
 done
