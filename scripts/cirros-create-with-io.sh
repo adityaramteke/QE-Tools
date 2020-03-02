@@ -10,11 +10,12 @@
 
 name=$1
 claimName=$2
-
+nameSpace=$3
 echo "kind: 'DeploymentConfig'
 apiVersion: 'v1'
 metadata:
   name: 'cirros$name'
+  namespace: $nameSpace
 spec:
   template:
     metadata:
