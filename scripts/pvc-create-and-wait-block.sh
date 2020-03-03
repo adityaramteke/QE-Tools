@@ -4,7 +4,7 @@
 ### eg. sh pvc-create-and-wait.sh
 
 
-for i in {001..200}; do
+for i in {001..300}; do
     sh pvc-create-block.sh claim$i 1 glusterfs-block;
 
     echo `date` - "PVC claim"$i "creation request sent" | tee -a pvctrace.log
