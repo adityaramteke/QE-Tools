@@ -1,10 +1,10 @@
 ---
 # subscription manager repos to enable
 subscription_repos: [
-  rhel-7-server-rpms,
-  rhel-7-server-extras-rpms,
-  rhel-7-server-optional-rpms,
-  rh-gluster-3-for-rhel-7-server-rpms,
+  rhel-8-server-rpms,
+  rhel-8-server-extras-rpms,
+  rhel-8-server-optional-rpms,
+  rh-gluster-3-for-rhel-8-server-rpms,
 ]
 
 # packages to install
