@@ -1,0 +1,122 @@
+---
+- hosts: localhost
+  vars_files:
+    - external_vars.yaml
+  tasks:
+  # making sshless with localhost so we can run cmds via ansible.
+  - name: 'ssh: making ssh less connection from localhost'
+    hosts: "{{ ansible_ssh_host }}"
+    connection: local
+    command: sshpass -p "{{ vm_password }}" ssh-copy-id -o \
+        "StrictHostKeyChecking=no" -f "root@{{ item }}"
+    with_items: "{{ hostvars[hostvars.keys()[0]]['groups']['all'] }}"
+    register: out 
+    tags: ssh
+
+- hosts: all
+  vars_files:
+    - external_vars.yaml
+  tasks:
+  - name: 'subscription: registering system with subscription-manager'
+    redhat_subscription:
+      state: present
+      username: "{{ username }}"
+      password: "{{ password }}"
+      pool_ids: "{{ pool_id }}"
+    when: "subscription"
+    tags: subscription
+
+  - name: 'subscription: disabling all repos'
+    rhsm_repository:
+      name: '*'
+      state: disabled
+    when: "subscription"
+    tags: subscription
+
+  - name: 'subscription: enabling the repos'
+    rhsm_repository:
+      name: "{{ item }}"
+      state: enabled
+    with_items: "{{ repos }}"
+    when: "subscription"
+    tags: subscription
+
+  - name: 'yum: install the packages'
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items: "{{ packages }}"
+    when: "yumInstall"
+    tags: yum
+
+  - name: 'yum: update all packages'
+    yum:
+      name: '*'
+      state: latest
+    when: "yumUpdate"
+    tags: yum
+
+  - name: 'docker: copy docker content in /etc/sysconfig/docker-storage-setup'
+    copy:
+      content: |
+        DEVS={{ docker_device }}
+        VG={{ docker_vg }}
+      dest: /etc/sysconfig/docker-storage-setup
+    when: "dockerConfig"
+    tags: docker
+
+  - name: 'docker: configuring docker'
+    command: docker-storage-setup
+    when: "dockerConfig"
+    register: out
+    tags: docker
+
+  - debug: var=out.stdout_lines
+    when: "dockerConfig"
+    tags: docker
+
+  - name: 'docker: enable docker service'
+    command: "{{ item }}"
+    with_items:
+      - systemctl enable docker
+      - systemctl start docker
+      - systemctl is-active docker
+    when: "dockerConfig"
+    tags: docker
+
+  - name: 'ssh: generating keys'
+    command: ssh-keygen -t rsa -f /root/.ssh/id_rsa -N ''
+    args:
+      creates: /root/.ssh/id_rsa
+    when: "sshLess"
+    register: out
+    tags: ssh
+
+  - debug: var=out.stdout_lines
+    when: "sshLess"
+    tags: ssh
+
+  - name: 'ssh: making ssh less'
+    command: sshpass -p "{{ vm_password }}" ssh-copy-id -o \
+        "StrictHostKeyChecking=no" -f "root@{{ item }}"
+    with_items: "{{ play_hosts }}"
+    when: "sshLess"
+    register: out
+    tags: ssh
+
+  - name: reboot the nodes
+    command: /sbin/shutdown -r +1
+    async: 0
+    poll: 0
+    ignore_errors: true
+    when: "reboot"
+    tags: reboot
+
+  - name: wait for the reboot to complete
+    wait_for_connection:
+      connect_timeout: 20
+      sleep: 5
+      delay: 5
+      timeout: 300
+    when: "reboot"
+    tags: reboot

@@ -1,0 +1,36 @@
+- name: 'make sure docker is installed on host machine'
+  command: rpm -q docker
+  register: cmd
+  ignore_errors: True
+  tags: always
+
+- name: 'fail if package docker is not installed'
+  fail:
+    msg: 'rpm docker in not installed on host, 
+    It is reqiured for docker configuration'
+  when: cmd.rc != 0
+  tags: always
+
+- name: 'copy docker content in /etc/sysconfig/docker-storage-setup'
+  copy:
+    content: |
+      DEVS={{ device }}
+      VG={{ vg }}
+    dest: /etc/sysconfig/docker-storage-setup
+  tags: always
+
+- name: 'configuring docker'
+  command: docker-storage-setup
+  register: out
+  tags: always
+
+- debug: var=out.stdout_lines
+  tags: always
+
+- name: 'enable docker service'
+  command: "{{ item }}"
+  with_items:
+    - systemctl enable docker
+    - systemctl start docker
+    - systemctl is-active docker
+  tags: always

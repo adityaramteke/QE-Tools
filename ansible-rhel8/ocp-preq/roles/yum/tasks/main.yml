@@ -1,0 +1,18 @@
+- name: 'set facts for yum'
+  set_fact:
+    _yum_update: "{{ update | default(True) }}"
+  tags: always
+
+- name: 'install the packages'
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ packages }}"
+  tags: always
+
+- name: 'update all packages'
+  yum:
+    name: '*'
+    state: latest
+  when: "_yum_update"
+  tags: always
