@@ -1,13 +1,9 @@
 ---
 # subscription manager repos to enable
 subscription_repos: [
-  rhel-8-server-rpms,
-  rhel-8-server-extras-rpms,
-  rhel-8-server-optional-rpms,
-  rhel-8-server-ansible-2.6-rpms,
-  rhel-8-server-ose-3.11-rpms,
-  rhel-8-fast-datapath-rpms,
-  rh-gluster-3-client-for-rhel-8-server-rpms,
+  rhel-8-for-x86_64-baseos-rpms,
+  rhel-8-for-x86_64-appstream-rpms,
+  rh-gluster-3-client-for-rhel-8-x86_64-rpms,
 ]
 
 # packages to install
