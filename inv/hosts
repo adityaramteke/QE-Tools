@@ -13,9 +13,9 @@ install_method=rpm
 install_update_docker=true
 docker_storage_driver=devicemapper
 container_runtime_docker_storage_setup_device=/dev/sdc
-# oreg_url=registry-proxy.engineering.redhat.com/rh-osbs/openshift3-ose-${component}:v3.11.170-2
-osm_etcd_image=registry-proxy.engineering.redhat.com/rh-osbs/rhel7-etcd:3.2.26-22
 oreg_url=registry.access.redhat.com/openshift3/ose-${component}:v3.11
+# oreg_url=registry-proxy.engineering.redhat.com/rh-osbs/openshift3-ose-${component}:v3.11.170-2
+# osm_etcd_image=registry-proxy.engineering.redhat.com/rh-osbs/rhel7-etcd:3.2.26-22
 openshift_release=v3.11
 openshift_docker_additional_registries=registry.access.redhat.com
 openshift_docker_insecure_registries=registry.access.redhat.com
@@ -65,7 +65,7 @@ openshift_metrics_cassandra_pvc_storage_class_name="glusterfs-registry-block"
 
 # glusterfs
 openshift_storage_glusterfs_timeout=900
-openshift_storage_glusterfs_namespace=glusterfs
+openshift_storage_glusterfs_namespace=app-storage
 openshift_storage_glusterfs_storageclass=true
 openshift_storage_glusterfs_storageclass_default=false
 openshift_storage_glusterfs_block_storageclass=true
@@ -76,7 +76,7 @@ openshift_storage_glusterfs_block_host_vol_size=100
 
 
 # glusterfs_registry
-openshift_storage_glusterfs_registry_namespace=glusterfs-registry
+openshift_storage_glusterfs_registry_namespace=infra-storage
 openshift_storage_glusterfs_registry_storageclass=true
 openshift_storage_glusterfs_registry_storageclass_default=false
 openshift_storage_glusterfs_registry_block_storageclass=true
@@ -87,7 +87,8 @@ openshift_storage_glusterfs_registry_block_host_vol_size=100
 
 # glusterfs_registry_storage
 openshift_hosted_registry_storage_kind=glusterfs
-openshift_hosted_registry_storage_volume_size=20Gi       
+openshift_hosted_registry_storage_volume_size=20Gi
+openshift_hosted_registry_selector="node-role.kubernetes.io/infra=true"       
 
 
 openshift_storage_glusterfs_heketi_admin_key='adminkey'
