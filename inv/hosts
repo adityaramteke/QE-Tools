@@ -88,7 +88,7 @@ openshift_storage_glusterfs_registry_block_host_vol_size=100
 # glusterfs_registry_storage
 openshift_hosted_registry_storage_kind=glusterfs
 openshift_hosted_registry_storage_volume_size=20Gi
-openshift_hosted_registry_selector="node-role.kubernetes.io/infra=true"       
+openshift_hosted_registry_selector="node-role.kubernetes.io/infra=true"    
 
 
 openshift_storage_glusterfs_heketi_admin_key='adminkey'
