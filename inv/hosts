@@ -17,8 +17,6 @@ oreg_url=registry.access.redhat.com/openshift3/ose-${component}:v3.11
 # oreg_url=registry-proxy.engineering.redhat.com/rh-osbs/openshift3-ose-${component}:v3.11.170-2
 # osm_etcd_image=registry-proxy.engineering.redhat.com/rh-osbs/rhel7-etcd:3.2.26-22
 openshift_release=v3.11
-openshift_docker_additional_registries=registry.access.redhat.com
-openshift_docker_insecure_registries=registry.access.redhat.com
 openshift_deployment_type=openshift-enterprise
 openshift_web_console_install=true
 openshift_enable_service_catalog=false
@@ -40,8 +38,8 @@ openshift_master_identity_providers=[{'name': 'allow_all', 'login': 'true', 'cha
 
 openshift_master_dynamic_provisioning_enabled=true
 
-openshift_docker_additional_registries='registry-proxy.engineering.redhat.com'
-openshift_docker_insecure_registries='registry-proxy.engineering.redhat.com'
+openshift_docker_additional_registries=['registry-proxy.engineering.redhat.com', 'registry.access.redhat.com']
+openshift_docker_insecure_registries=['registry-proxy.engineering.redhat.com', 'registry.access.redhat.com']
 
 
 # logging
