@@ -5,7 +5,7 @@
 
 
 name=heketi-storage-secret-glusterfs-block
-nameSpace=glusterfs
+nameSpace=app-storage
 adminkey='adminkey'
 
 key=`echo -n $adminkey | base64`

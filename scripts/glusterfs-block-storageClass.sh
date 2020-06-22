@@ -6,7 +6,7 @@
 
 name=glusterfs-block
 secretName=heketi-storage-secret-glusterfs-block
-secretNameSpace=glusterfs
+secretNameSpace=app-storage
 heketiRoute=heketi-storage
 restUrl=`oc get route $heketiRoute -n $secretNameSpace --no-headers\
     -o=custom-columns=:.spec.host`
