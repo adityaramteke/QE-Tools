@@ -16,6 +16,8 @@ remove_gluster_with_metrics:
 install_heketi:
 	subscription-manager repos --enable=rh-gluster-3-client-for-rhel-7-server-rpms
 	yum install heketi-client -y
+	cat heketi-var-setup >> ~/.bashrc
+	source ~/.bashrc
 create_projects:
 	oc new-project glusterfs-file
 	oc new-project glusterfs-block

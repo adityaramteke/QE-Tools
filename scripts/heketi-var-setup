@@ -1,0 +1,9 @@
+nameSpace=app-storage
+heketiRoute=heketi-storage
+restUrl=`oc get route $heketiRoute -n $nameSpace --no-headers\
+        -o=custom-columns=:.spec.host`
+
+export HEKETI_CLI_SERVER=http://${restUrl}
+export HEKETI_CLI_USER=admin
+export HEKETI_CLI_KEY=adminkey
+
