@@ -30,3 +30,5 @@ full_deploy_with_workload:
 	make full_deploy
 	make create_projects
 	make create_workload
+remove_monitoring:
+	ansible-playbook -e openshift_cluster_monitoring_operator_install=false /usr/share/ansible/openshift-ansible/playbooks/openshift-monitoring/config.yml
