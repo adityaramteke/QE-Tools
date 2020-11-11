@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  generation: 1
+  labels:
+    k8s-app: heketi
+  name: heketi
+  namespace: openshift-monitoring
+spec:
+  endpoints:
+  - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+    interval: 30s
+    port: heketi
+    scheme: http
+    targetPort: 0
+  namespaceSelector:
+    matchNames:
+    - glusterfs
+  selector:
+    matchLabels:
+      heketi: storage-service
